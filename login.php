@@ -47,10 +47,10 @@ $expired = isset($_GET['expired']) && $_GET['expired'] == '1';
         <!-- Encabezado con icono y título -->
         <div class="text-center mb-8">
             <div class="bg-gradient-to-r from-indigo-600 to-purple-700 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-utensils text-white text-3xl"></i>
+                <i class="fas fa-tools text-white text-3xl"></i>
             </div>
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Bienvenido</h1>
-            <p class="text-gray-600">Sistema de Gestión de Cocina</p>
+            <p class="text-gray-600">Sistema de Gestión de Herramientas y Activos Fijos</p>
         </div>
 
         <!-- Contenedor para mostrar mensajes dinámicos -->
