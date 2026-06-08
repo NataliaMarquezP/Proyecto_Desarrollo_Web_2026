@@ -13,7 +13,7 @@ if (Auth::check()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestión de Inventario - Cocina Escolar</title>
+    <title>Sistema de Control de Activos y Préstamos Centro Educacional Matias Cousiño</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -124,8 +124,8 @@ if (Auth::check()) {
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <i class="fas fa-utensils text-white text-3xl"></i>
-                    <span class="text-white text-2xl font-bold">GestiónCocina</span>
+                    <i class="fas fa-tools text-white text-3xl"></i>
+                    <span class="text-white text-2xl font-bold">Gestión Activos fijos y préstamos</span>
                 </div>
                 <div class="hidden md:flex gap-4 items-center">
                     <a href="#caracteristicas" class="text-blue hover:text-indigo-400 transition px-4 py-2">Características</a>
@@ -158,11 +158,11 @@ if (Auth::check()) {
                     <i class="fas fa-warehouse text-white text-8xl opacity-90"></i>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
-                    Sistema de Gestión de Inventario
+                    Sistema de Control de Activos y Prestamos
                 </h1>
                 <p class="text-lg md:text-2xl text-white opacity-90 mb-8 max-w-3xl mx-auto">
-                    Controla y administra el inventario de la cocina escolar de manera eficiente, 
-                    organizada y en tiempo real
+                    Plataforma destinada a la administración de activos fijos, materiales y préstamos,
+                    de equipos de los talleres de Electrónica y Telecomunicaciones del Centro Educacional Matías Cousiño.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="login.php" class="btn-primary text-white px-8 py-4 rounded-lg font-bold text-lg inline-block">
@@ -182,10 +182,10 @@ if (Auth::check()) {
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 <?php
                 $stats = [
-                    ['number' => '2', 'title' => 'Tipos de Inventario', 'subtitle' => 'Insumos y Herramientas'],
-                    ['number' => '100%', 'title' => 'Control en Tiempo Real', 'subtitle' => 'Actualización instantánea'],
-                    ['number' => '3', 'title' => 'Ubicaciones', 'subtitle' => 'Bodega, Taller y Pañol'],
-                    ['number' => '∞', 'title' => 'Historial Completo', 'subtitle' => 'Seguimiento de movimientos']
+                    ['number' => '2', 'title' => 'Talleres', 'subtitle' => 'Electrónica y Telecomunicaciones'],
+                    ['number' => '100%', 'title' => 'Control de Activos', 'subtitle' => 'Registro actualizado'],
+                    ['number' => '24/7', 'title' => 'Préstamos', 'subtitle' => 'Seguimiento continuo'],
+                    ['number' => '∞', 'title' => 'Historial Completo', 'subtitle' => 'Movimientos registrados']
                 ];
                 
                 foreach ($stats as $stat): ?>
@@ -211,47 +211,50 @@ if (Auth::check()) {
                 <?php
                 $features = [
                     [
-                        'icon' => 'fa-boxes',
+                        'icon' => 'fa-microchip',
                         'color' => 'blue',
-                        'title' => 'Gestión de Insumos',
-                        'description' => 'Registra y controla todos los insumos de la cocina con alertas de stock mínimo para evitar desabastecimientos.',
-                        'items' => ['Control de cantidades', 'Múltiples unidades de medida', 'Alertas de stock bajo']
+                        'title' => 'Gestión de Activos Fijos',
+                        'description' => 'Registro y administración de equipos, instrumentos y activos pertenecientes a los talleres de Electrónica y Telecomunicaciones',
+                        'items' => ['Control de inventario', 'Ubicación del activo', 'Estado del equipo']
                     ],
                     [
-                        'icon' => 'fa-tools',
+                        'icon' => 'fa-box-open',
                         'color' => 'orange',
                         'title' => 'Control de Herramientas',
-                        'description' => 'Administra herramientas y utensilios organizados por categorías y ubicaciones para un acceso rápido.',
-                        'items' => ['Organización por categorías', 'Ubicación específica', 'Estado en tiempo real']
+                        'description' => 'Administración de materiales almacenados en bodega y pañol para actividades académicas y prácticas de taller.',
+                        'items' => ['Control de stock', 'Ubicación de materiales', 'Registro de existencias']
                     ],
+
                     [
-                        'icon' => 'fa-history',
+                        'icon' => 'fa-handshake',
                         'color' => 'purple',
-                        'title' => 'Historial de Movimientos',
-                        'description' => 'Registro completo de todas las entradas y salidas con información del usuario y motivo del movimiento.',
-                        'items' => ['Trazabilidad completa', 'Registro de usuarios', 'Filtros avanzados']
+                        'title' => 'Control de Préstamos',
+                        'description' => 'Registro de préstamos de herramientas, equipos y materiales solicitados por estudiantes y docentes.',
+                        'items' => ['Fecha de préstamo', 'Responsable', 'Fecha de devolución']
                     ],
                     [
-                        'icon' => 'fa-shield-alt',
+                        'icon' => 'fa-file-signature',
                         'color' => 'green',
-                        'title' => 'Sistema de Permisos',
-                        'description' => 'Control de acceso con roles de administrador y usuario para mantener la seguridad de la información.',
-                        'items' => ['Roles diferenciados', 'Autenticación segura', 'Permisos granulares']
+                        'title' => 'Comprobantes de Responsabilidad',
+                        'description' => 'Generación de documentos imprimibles para respaldar los préstamos realizados dentro de la institución.',
+                        'items' => ['Documento imprimible', 'Firma del solicitante', 'Respaldo institucional']
                     ],
                     [
-                        'icon' => 'fa-chart-line',
+                        'icon' => 'fa-users-cog',
                         'color' => 'red',
-                        'title' => 'Interfaz Intuitiva',
-                        'description' => 'Diseño moderno y fácil de usar con navegación por pestañas y visualización clara de la información.',
-                        'items' => ['Diseño responsive', 'Navegación intuitiva', 'Visualización clara']
+                        'title' => 'Control de Usuarios',
+                        'description' => 'Administración de usuarios autorizados para registrar préstamos, devoluciones y movimientos.',
+                        'items' => ['Administradores', 'Encargados de pañol', 'Registro de actividad']
                     ],
                     [
-                        'icon' => 'fa-exchange-alt',
+                        'icon' => 'fa-chart-bar',
                         'color' => 'indigo',
-                        'title' => 'Registro de Movimientos',
-                        'description' => 'Sistema completo para registrar entradas y salidas de forma rápida con validación automática de stock.',
-                        'items' => ['Validación automática', 'Registro rápido', 'Control de stock']
+                        'title' => 'Reportes y Seguimiento',
+                        'description' => 'Consulta de historial y generación de reportes para el control y seguimiento de activos institucionales.',
+                        'items' => ['Historial completo', 'Filtros de búsqueda', 'Reportes impresos']
                     ]
+
+
                 ];
                 
                 foreach ($features as $feature): ?>
@@ -340,11 +343,11 @@ if (Auth::check()) {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <i class="fas fa-utensils text-3xl"></i>
-                        <span class="text-2xl font-bold">GestiónCocina</span>
+                        <i class="fas fa-tools text-3xl"></i>
+                        <span class="text-2xl font-bold">Control Activos fijos y préstamos</span>
                     </div>
                     <p class="text-gray-400">
-                        Sistema completo de gestión de inventario para la ocina.
+                        Sistema completo de gestión de activos fijos, materiales y préstamos.
                     </p>
                 </div>
                 <div>
@@ -358,7 +361,7 @@ if (Auth::check()) {
                 
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; <?php echo date('Y'); ?> GestiónCocina.</p>
+                <p>&copy; <?php echo date('Y'); ?> Gestión Activos y Préstamos .</p>
             </div>
         </div>
     </footer>
