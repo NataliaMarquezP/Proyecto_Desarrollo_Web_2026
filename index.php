@@ -22,7 +22,7 @@ $isAdmin = Auth::isAdmin();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Inventario - Cocina</title>
+    <title>Gestión de Inventario - Activos Fijos</title>
     
     <!-- Incluye Tailwind CSS desde CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -41,7 +41,7 @@ $isAdmin = Auth::isAdmin();
             <div>
                 <!-- Título principal -->
                 <h1 class="text-4xl font-bold flex items-center gap-3">
-                    <i class="fas fa-utensils"></i> Gestión de Cocina
+                    <i class="fas fa-utensils"></i> Gestión de Activos Fijos
                 </h1>
                 <!-- Subtítulo -->
                 <p class="text-indigo-200 mt-2">Sistema completo de inventario y herramientas</p>
@@ -87,6 +87,10 @@ $isAdmin = Auth::isAdmin();
             <!-- Botón para la pestaña de historial -->
             <button class="tab-btn text-white font-semibold px-6 py-2" onclick="switchTab('historial')">
                 <i class="fas fa-history mr-2"></i>Historial
+            </button>
+            <!-- Botón para la pestaña de prestamos -->
+            <button class="tab-btn text-white font-semibold px-6 py-2" oneclick="switchTab('prestamos')">
+                <i class="fas fa-handshake mr-2"></i>Prestamos
             </button>
         </div>
         
@@ -169,21 +173,34 @@ $isAdmin = Auth::isAdmin();
                 <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
                     <i class="fas fa-plus-circle text-indigo-600"></i>Añadir Nueva Herramienta
                 </h2>
-                <form id="tools-form" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <form id="tools-form" class="grid grid-cols-1 md:grid-cols-6 gap-4">
                     <input type="text" id="tool-name" placeholder="Nombre de la herramienta" class="input-field p-3 rounded-lg" required>
+                    <input type="text" id="tool-code" placeholder="Código Patrimonial" class="input-field p-3 rounded-1g" required>
                     <input type="number" id="tool-quantity" placeholder="Cantidad" class="input-field p-3 rounded-lg" min="0" required>
                     <select id="tool-category" class="input-field p-3 rounded-lg" required>
                         <option value="">Categoría</option>
-                        <option value="cubiertos">Cubiertos</option>
-                        <option value="utensilios">Utensilios</option>
-                        <option value="ollas">Ollas y Sartenes</option>
+                        <option value="manual">Herramientas manuales</option>
+                        <option value="electrico">Herramientas Eléctricas</option>
+                        <option value="medicion">Instrumentos de Medición</option>
+                        <option value="informatica">Equipos Informáticos</option>
+                        <option value="seguridad">Elementos de Seguridad</option>
                         <option value="otros">Otros</option>
                     </select>
                     <select id="tool-location" class="input-field p-3 rounded-lg" required>
+                    <input type="text" id="tool-responsable" placeholder="Responsable" class="input-field p-3 rounded-1g">
                         <option value="">Ubicación</option>
                         <option value="bodega">Bodega</option>
                         <option value="taller">Taller</option>
                         <option value="pañol">Pañol</option>
+                        <option value="informatica">Sala de Informática</option>
+                        <option value="mantencion">Mantención</option>
+                    </select>
+                    <select id="tool-status" class="input-field p-3 rounded-1g" required>
+                        <option value="">Estado</option>
+                        <option value="operativo">Operativo</option>
+                        <option value="prestado">Prestado</option>
+                        <option value="mantenimiento">En Mantenimiento</option>
+                        <option value="baja">Dado de Baja</option>
                     </select>
                     <button type="submit" class="btn-primary text-white p-3 rounded-lg font-semibold">
                         <i class="fas fa-check mr-2"></i>Añadir
@@ -235,10 +252,11 @@ $isAdmin = Auth::isAdmin();
                     <table class="w-full">
                         <thead>
                             <tr class="bg-gradient-to-r from-indigo-50 to-purple-50">
+                                <th class="p-4 text-left font-semibold text-gray-700">Código</th>
                                 <th class="p-4 text-left font-semibold text-gray-700">Herramienta</th>
-                                <th class="p-4 text-left font-semibold text-gray-700">Cantidad</th>
                                 <th class="p-4 text-left font-semibold text-gray-700">Categoría</th>
                                 <th class="p-4 text-left font-semibold text-gray-700">Ubicación</th>
+                                <th class="p-4 text-left font-semibold text-gray-700">Responsable</th>
                                 <th class="p-4 text-left font-semibold text-gray-700">Estado</th>
                                 <?php if ($isAdmin): ?>
                                 <th class="p-4 text-center font-semibold text-gray-700">Acciones</th>
@@ -258,8 +276,12 @@ $isAdmin = Auth::isAdmin();
                 <form id="tool-movement-form" class="grid grid-cols-1 md:grid-cols-5 gap-4">
                     <select id="tool-movement-item" class="input-field p-3 rounded-lg" required></select>
                     <select id="tool-movement-type" class="input-field p-3 rounded-lg" required>
-                        <option value="entrada">Entrada</option>
-                        <option value="salida">Salida</option>
+                        <option value="ingreso">Ingreso</option>
+                        <option value="prestamo">Préstamo</option>
+                        <option value="devolucion">Devolución</option>
+                        <option value="traslado">Trastalo</option>
+                        <option value="mantenimiento">Mantenimiento</option>
+                        <option value="baja">Baja</option>
                     </select>
                     <input type="number" id="tool-movement-quantity" placeholder="Cantidad" class="input-field p-3 rounded-lg" min="1" required>
                     <input type="text" id="tool-movement-reason" placeholder="Motivo" class="input-field p-3 rounded-lg" required>
@@ -301,6 +323,27 @@ $isAdmin = Auth::isAdmin();
                 </div>
             </section>
         </div>
+
+        <!-- TAB:PRÉSTAMOS -->
+        <div id="tab-prestamos" class="tab-content hidden">
+            <section class="bg-white p-8 rounded-x1 card-shadow">
+                <h2 class="text-2x1 font-bold mb-6 flex items-center gap-2">
+                    <i class="fas fa-handshake text-indigo-600"></i>
+                </h2>
+                <form id="loan-form" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <select id="loan-tool" class="input-field p-3 rounded-1g">
+                        <option value="">Seleccionar Herramienta</option>
+                    </select>
+                    <input type="text" id="loan-person" placeholder="Alumno o Funcionario" class="input-field p-3 rounded-1g" required>
+                    <input type="date" id="loan-date" class="input-field p-3 rounded-1g" required>
+                    <input type="date" id="return-date" class="input-field p-3 rounded-1g">
+                        <button type="submit" class="btn-primary text-white p-3 rounded-1g font-semibold">
+                            <i class="fas fa-save mr-2"></i>
+                        </button>
+                </form>
+            </section>
+        </div>
+                
     </main>
 
     <script>
